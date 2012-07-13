@@ -231,7 +231,11 @@ INSTALLED_APPS = (
     'apps.push',
     'apps.social',
     'apps.oauth',
+<<<<<<< HEAD
     'apps.categories',
+=======
+    'apps.search',
+>>>>>>> Making poor progress on search. Can't even query yet.
     'south',
     'utils',
     'vendor',
