@@ -3,8 +3,13 @@ import logging
 import os
 import datetime
 from mongoengine import connect
+<<<<<<< HEAD
 from boto.s3.connection import S3Connection
+=======
+from vendor.dynamodb_mapper.model import ConnectionBorg
+>>>>>>> First half of DynamoDB trial, converting stories from mongo to dynamodb. Still needs to be updated/inserted on feed update, and then processed with all MStory uses.
 import redis
+import boto
 from utils import jammit
 
 # ===================
@@ -450,6 +455,13 @@ ACCOUNT_ACTIVATION_DAYS = 30
 AWS_ACCESS_KEY_ID = S3_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY = S3_SECRET
 
+os.environ["AWS_ACCESS_KEY_ID"] = AWS_ACCESS_KEY_ID
+os.environ["AWS_SECRET_ACCESS_KEY"] = AWS_SECRET_ACCESS_KEY
+try:
+    DDB = ConnectionBorg().get_table('stories')
+except boto.exception.DynamoDBResponseError:
+    DDB = None
+
 def custom_show_toolbar(request):
     return DEBUG
 
@@ -494,6 +506,7 @@ if DEBUG:
     MIDDLEWARE_CLASSES += ('utils.redis_raw_log_middleware.SqldumpMiddleware',)
     MIDDLEWARE_CLASSES += ('utils.request_introspection_middleware.DumpRequestMiddleware',)
     MIDDLEWARE_CLASSES += ('utils.exception_middleware.ConsoleExceptionMiddleware',)
+<<<<<<< HEAD
 
 # =======
 # = AWS =
@@ -504,3 +517,5 @@ if BACKED_BY_AWS.get('pages_on_s3') or BACKED_BY_AWS.get('icons_on_s3'):
     S3_CONN = S3Connection(S3_ACCESS_KEY, S3_SECRET)
     S3_PAGES_BUCKET = S3_CONN.get_bucket(S3_PAGES_BUCKET_NAME)
     S3_ICONS_BUCKET = S3_CONN.get_bucket(S3_ICONS_BUCKET_NAME)
+=======
+>>>>>>> First half of DynamoDB trial, converting stories from mongo to dynamodb. Still needs to be updated/inserted on feed update, and then processed with all MStory uses.
