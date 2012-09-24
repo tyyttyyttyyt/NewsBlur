@@ -75,9 +75,13 @@ class Feed(models.Model):
 <<<<<<< HEAD
     s3_page = models.NullBooleanField(default=False, blank=True, null=True)
     s3_icon = models.NullBooleanField(default=False, blank=True, null=True)
+<<<<<<< HEAD
 =======
     backed_by_dynamodb = models.BooleanField(default=False)
 >>>>>>> First half of DynamoDB trial, converting stories from mongo to dynamodb. Still needs to be updated/inserted on feed update, and then processed with all MStory uses.
+=======
+    backed_by_dynamodb = models.NullBooleanField(default=False, blank=True, null=True)
+>>>>>>> Shifting mgirations for DStory.
 
     class Meta:
         db_table="feeds"
