@@ -762,14 +762,24 @@ class Feed(models.Model):
                     return duplicate_feeds[0].feed
                 
     def add_update_stories(self, stories, existing_stories, verbose=False):
+<<<<<<< HEAD
         ret_values = dict(new=0, updated=0, same=0, error=0)
 
+=======
+        ret_values = {
+            ENTRY_NEW:0,
+            ENTRY_UPDATED:0,
+            ENTRY_SAME:0,
+            ENTRY_ERR:0
+        }
+        
+>>>>>>> Using a regex to remove comments.
         for story in stories:
             if not story.get('title'):
                 continue
                 
             story_content = story.get('story_content')
-            # story_content = strip_comments(story_content)
+            story_content = strip_comments(story_content)
             story_tags = self.get_tags(story)
             story_link = self.get_permalink(story)
                 
