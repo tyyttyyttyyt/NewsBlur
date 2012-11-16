@@ -57,9 +57,12 @@
 - (void)finishSubscribeToBlurblog:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
 <<<<<<< HEAD
+<<<<<<< HEAD
 - (void)setActiveStoryAtIndex:(NSInteger)activeStoryIndex;
 =======
 - (void)requestFailedMarkAsRead:(ASIHTTPRequest *)request;
+=======
+>>>>>>> Revert "Failing marking a story as read in ios now shows an error."
 - (void)setActiveStory;
 - (IBAction)toggleFontSize:(id)sender;
 - (void)setFontStyle:(NSString *)fontStyle;
