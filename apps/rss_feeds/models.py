@@ -1565,7 +1565,11 @@ class MStarredStory(mongo.Document):
                                  story_author=self.story_author_name, 
                                  story_date=self.story_date)
     
+    @property
+    def guid_hash(self):
+        return hashlib.sha1(self.story_guid).hexdigest()
     
+
 class MFeedFetchHistory(mongo.Document):
     feed_id = mongo.IntField()
     status_code = mongo.IntField()
