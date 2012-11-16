@@ -56,7 +56,15 @@
 - (void)subscribeToBlurblog;
 - (void)finishSubscribeToBlurblog:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
+<<<<<<< HEAD
 - (void)setActiveStoryAtIndex:(NSInteger)activeStoryIndex;
+=======
+- (void)requestFailedMarkAsRead:(ASIHTTPRequest *)request;
+- (void)setActiveStory;
+- (IBAction)toggleFontSize:(id)sender;
+- (void)setFontStyle:(NSString *)fontStyle;
+- (void)changeFontSize:(NSString *)fontSize;
+>>>>>>> Failing marking a story as read in ios now shows an error.
 - (NSString *)getShareBar;
 - (NSString *)getComments;
 - (NSString *)getComment:(NSDictionary *)commentDict;

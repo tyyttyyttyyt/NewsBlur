@@ -946,8 +946,76 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     [self.webView stringByEvaluatingJavaScriptFromString:jsString];
 }
 
+<<<<<<< HEAD
 #pragma mark -
 #pragma mark Actions
+=======
+- (void)markStoryAsRead {
+//    NSLog(@"[appDelegate.activeStory objectForKey:@read_status] intValue] %i", [[appDelegate.activeStory objectForKey:@"read_status"] intValue]);
+    if ([[appDelegate.activeStory objectForKey:@"read_status"] intValue] != 1) {
+        
+        [appDelegate markActiveStoryRead];
+
+        NSString *urlString;        
+        if (appDelegate.isSocialView || appDelegate.isSocialRiverView) {
+            urlString = [NSString stringWithFormat:@"http://%@/reader/mark_social_stories_as_read",
+                        NEWSBLUR_URL];
+        } else {
+            urlString = [NSString stringWithFormat:@"http://%@/reader/mark_story_as_read",
+                         NEWSBLUR_URL];
+        }
+
+        NSURL *url = [NSURL URLWithString:urlString];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+        
+        if (appDelegate.isSocialRiverView) {
+            // grab the user id from the shared_by_friends
+            NSArray *storyId = [NSArray arrayWithObject:[appDelegate.activeStory objectForKey:@"id"]];
+            NSString *friendUserId;
+            
+            if ([[appDelegate.activeStory objectForKey:@"shared_by_friends"] count]) {
+                friendUserId = [NSString stringWithFormat:@"%@", 
+                                          [[appDelegate.activeStory objectForKey:@"shared_by_friends"] objectAtIndex:0]];
+            } else {
+                friendUserId = [NSString stringWithFormat:@"%@", 
+                                          [[appDelegate.activeStory objectForKey:@"commented_by_friends"] objectAtIndex:0]];
+            }
+
+            NSDictionary *feedStory = [NSDictionary dictionaryWithObject:storyId 
+                                                                  forKey:[NSString stringWithFormat:@"%@", 
+                                                                          [appDelegate.activeStory objectForKey:@"story_feed_id"]]];
+            
+            NSDictionary *usersFeedsStories = [NSDictionary dictionaryWithObject:feedStory 
+                                                                          forKey:friendUserId];
+            
+            [request setPostValue:[usersFeedsStories JSONRepresentation] forKey:@"users_feeds_stories"]; 
+        } else if (appDelegate.isSocialView) {
+            NSArray *storyId = [NSArray arrayWithObject:[appDelegate.activeStory objectForKey:@"id"]];
+            NSDictionary *feedStory = [NSDictionary dictionaryWithObject:storyId 
+                                                                     forKey:[NSString stringWithFormat:@"%@", 
+                                                                             [appDelegate.activeStory objectForKey:@"story_feed_id"]]];
+                                         
+            NSDictionary *usersFeedsStories = [NSDictionary dictionaryWithObject:feedStory 
+                                                                          forKey:[NSString stringWithFormat:@"%@",
+                                                                                  [appDelegate.activeStory objectForKey:@"social_user_id"]]];
+            
+            [request setPostValue:[usersFeedsStories JSONRepresentation] forKey:@"users_feeds_stories"]; 
+        } else {
+            [request setPostValue:[appDelegate.activeStory 
+                                   objectForKey:@"id"] 
+                           forKey:@"story_id"];
+            [request setPostValue:[appDelegate.activeStory 
+                                   objectForKey:@"story_feed_id"] 
+                           forKey:@"feed_id"]; 
+        }
+                         
+        [request setDidFinishSelector:@selector(finishMarkAsRead:)];
+        [request setDidFailSelector:@selector(requestFailedMarkAsRead:)];
+        [request setDelegate:self];
+        [request startAsynchronous];
+    }
+}
+>>>>>>> Failing marking a story as read in ios now shows an error.
 
 - (void)toggleLikeComment:(BOOL)likeComment {
     [appDelegate.storyPageControl showShareHUD:@"Favoriting"];
@@ -1026,6 +1094,28 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     [self informError:error];
 }
 
+<<<<<<< HEAD
+=======
+- (void)requestFailedMarkAsRead:(ASIHTTPRequest *)request {
+    [self informError:@"Failed marking as read"];
+}
+
+- (void)finishMarkAsRead:(ASIHTTPRequest *)request {
+    if ([request responseStatusCode] != 200) {
+        [self requestFailedMarkAsRead:request];
+    }
+}
+
+- (void)openSendToDialog {
+    NSURL *url = [NSURL URLWithString:[appDelegate.activeStory
+                                       objectForKey:@"story_permalink"]];
+    SHKItem *item = [SHKItem URL:url title:[appDelegate.activeStory
+                                            objectForKey:@"story_title"]];
+    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    [actionSheet showInView:self.view];
+}
+
+>>>>>>> Failing marking a story as read in ios now shows an error.
 - (void)openShareDialog {
     // test to see if the user has commented
     // search for the comment from friends comments
