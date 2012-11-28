@@ -2,6 +2,11 @@ import sys
 import logging
 import os
 import datetime
+<<<<<<< HEAD
+=======
+import redis
+import raven
+>>>>>>> Gutting dynamodb and just keeping good changes.
 from mongoengine import connect
 from boto.s3.connection import S3Connection
 import raven
@@ -426,7 +431,6 @@ TWITTER_CONSUMER_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 BACKED_BY_AWS = {
     'pages_on_s3': False,
     'icons_on_s3': False,
-    'stories_on_dynamodb': False,
 }
 
 PROXY_S3_PAGES = True
