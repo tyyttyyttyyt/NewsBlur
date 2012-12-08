@@ -59,6 +59,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 - (void)setActiveStoryAtIndex:(NSInteger)activeStoryIndex;
+<<<<<<< HEAD
 =======
 - (void)requestFailedMarkAsRead:(ASIHTTPRequest *)request;
 =======
@@ -68,6 +69,9 @@
 - (void)setFontStyle:(NSString *)fontStyle;
 - (void)changeFontSize:(NSString *)fontSize;
 >>>>>>> Failing marking a story as read in ios now shows an error.
+=======
+- (NSString *)getHeader;
+>>>>>>> Adding interactivity for tapping authors and tags and updating their classifier inline. Just need to hook them up to the server for persistence, update unread counts, and possibly update stories inline.
 - (NSString *)getShareBar;
 - (NSString *)getComments;
 - (NSString *)getComment:(NSDictionary *)commentDict;
@@ -75,6 +79,9 @@
 - (NSString *)getAvatars:(NSString *)key;
 - (NSDictionary *)getUser:(int)user_id;
 
+- (void)toggleAuthorClassifier:(NSString *)author;
+- (void)toggleTagClassifier:(NSString *)tag;
+- (void)refreshHeader;
 
 
 @end
