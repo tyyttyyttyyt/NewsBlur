@@ -1420,6 +1420,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 - (void)finishTrain:(ASIHTTPRequest *)request {
     [appDelegate.feedsViewController refreshFeedList:[self.activeStory
                                                       objectForKey:@"story_feed_id"]];
+    [appDelegate recalculateIntelligenceScores:];
+    [appDelegate.feedDetailViewController.storyTitlesTable reloadData];
 }
 
 - (void)refreshHeader {
