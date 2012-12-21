@@ -420,6 +420,15 @@ REDIS = {
     'host': 'db01',
 }
 
+<<<<<<< HEAD
+=======
+# =================
+# = Elasticsearch =
+# =================
+
+ELASTICSEARCH_HOSTS = ['db02:9200']
+
+>>>>>>> Adding elasticsearch fabfile config.
 # ===============
 # = Social APIs =
 # ===============
